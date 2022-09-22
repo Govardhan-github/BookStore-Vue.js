@@ -11,6 +11,9 @@
           <h3>SignUp</h3>
         </div>
         <div class="page-body p-2 mr-3">
+        <div class="alert alert-danger p-1 mr-5 ml-5" v-if="error" role="alert">
+        {{ error }}
+      </div>
           <div class="col-md-15">
             <div class="form-group">
               <label for="" class="mr-0">Full Name </label>
@@ -83,6 +86,7 @@ export default {
   },
   methods: {
     onSubmit() {
+      if(this.emailId && this.password ){
       this.signupData = {
         FullName: this.fullName,
         Email: this.emailId,
@@ -92,6 +96,11 @@ export default {
       };
       console.log("this.data", this.signupData);
       this.$store.dispatch("bookstore/userSignupData", this.signupData);
+      }
+      else if(!this.emailId || !this.password ){
+        this.error ='password and email required fileds'
+      }
+
     },
 
     setup: function () {
